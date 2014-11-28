@@ -38,3 +38,4 @@ Thumbs.db
 # Dev environment specific files #
 ##################################
 .vagrant
+.idea
