@@ -2,11 +2,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>JV-ration Stack</name>
     <groupId>com.jv-ration.docker</groupId>
     <artifactId>team-city</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <name>JV-ration TeamCity Farm</name>
+    <description>Build results enable creation of new VM, which runs ready for use installation of TeamCity server and client</description>
 
     <!--<licenses>
         <license>
@@ -19,6 +21,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <jvr.tcf.server.port>8112</jvr.tcf.server.port>
 
     </properties>
 
@@ -85,6 +89,53 @@
                     </descriptors>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+
+                    <!-- start up the VM -->
+                    <execution>
+                        <id>vagrant-up</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>vagrant</executable>
+                            <arguments>
+                                <argument>up</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- destroy the running VM -->
+                    <execution>
+                        <id>vagrant-destroy</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>vagrant</executable>
+                            <arguments>
+                                <argument>destroy</argument>
+                                <argument>--force</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                </executions>
+
+                <configuration>
+                    <workingDirectory>${project.build.outputDirectory}</workingDirectory>
+                </configuration>
+
+            </plugin>
+
+
         </plugins>
     </build>
 

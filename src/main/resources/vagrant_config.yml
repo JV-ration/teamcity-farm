@@ -1,0 +1,4 @@
+# vagrant_config.yml
+
+tc-server:
+  port: ${jvr.tcf.server.port}
