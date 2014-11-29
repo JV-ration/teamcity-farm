@@ -78,6 +78,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archiveBaseDirectory>${project.build.outputDirectory}</archiveBaseDirectory>
                     <descriptors>
                         <descriptor>src/assembly/distribution.xml</descriptor>
