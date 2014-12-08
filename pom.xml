@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jv-ration.docker</groupId>
-    <artifactId>team-city</artifactId>
+    <artifactId>team-city-farm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -21,6 +21,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <packaging.type>zip</packaging.type>
 
         <jvr.tcf.server.port>8112</jvr.tcf.server.port>
 
@@ -124,27 +126,9 @@
                         <configuration>
                             <executable>unzip</executable>
                             <arguments>
-                                <argument>${project.build.directory}/${project.build.finalName}.zip</argument>
+                                <argument>${project.build.directory}/${project.build.finalName}.${packaging.type}</argument>
                             </arguments>
                             <workingDirectory>${project.build.directory}/test-classes/it</workingDirectory>
-                        </configuration>
-                    </execution>
-
-                    <!-- enable execution -->
-                    <execution>
-                        <id>enable-execution</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>chmod</executable>
-                            <arguments>
-                                <argument>-R</argument>
-                                <argument>+x</argument>
-                                <argument>.</argument>
-                            </arguments>
-                            <workingDirectory>${project.build.directory}/test-classes/it/bin</workingDirectory>
                         </configuration>
                     </execution>
 
@@ -156,8 +140,8 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>../bin/vagrant-up.sh</executable>
-                            <workingDirectory>${project.build.directory}/test-classes/it/${project.artifactId}-${project.version}</workingDirectory>
+                            <executable>bin/vagrant-up${script.extension}</executable>
+                            <workingDirectory>${project.build.directory}/test-classes/it/${project.build.finalName}</workingDirectory>
                         </configuration>
                     </execution>
 
@@ -169,8 +153,8 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>../bin/vagrant-destroy.sh</executable>
-                            <workingDirectory>${project.build.directory}/test-classes/it/${project.artifactId}-${project.version}</workingDirectory>
+                            <executable>bin/vagrant-destroy${script.extension}</executable>
+                            <workingDirectory>${project.build.directory}/test-classes/it/${project.build.finalName}</workingDirectory>
                         </configuration>
                     </execution>
 
@@ -181,5 +165,60 @@
 
         </plugins>
     </build>
+
+    <profiles>
+
+        <profile>
+            <id>Windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>.bat</script.extension>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>.sh</script.extension>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <!-- make scripts executable -->
+                            <execution>
+                                <id>enable-execution</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>chmod</executable>
+                                    <arguments>
+                                        <argument>-R</argument>
+                                        <argument>+x</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                    <workingDirectory>${project.build.directory}/test-classes/it/${project.build.finalName}/bin</workingDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
 </project>
