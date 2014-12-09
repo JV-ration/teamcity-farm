@@ -24,7 +24,13 @@
 
         <packaging.type>zip</packaging.type>
 
+        <!-- properties using in generated scripts -->
         <jvr.tcf.server.port>8112</jvr.tcf.server.port>
+
+        <docker.teamcity-server.version>latest</docker.teamcity-server.version>
+        <docker.teamcity-agent.version>latest</docker.teamcity-agent.version>
+
+        <docker.mysql.version>5.7.5-m15</docker.mysql.version>
 
     </properties>
 

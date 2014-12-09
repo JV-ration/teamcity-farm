@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-# To be expended by vagrant-up wrapper
+# To be expanded by vagrant-up wrapper
 

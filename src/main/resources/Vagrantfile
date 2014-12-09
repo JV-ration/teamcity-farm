@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine
   config.vm.network :forwarded_port, guest: vconfig['tc-server']['port'], host: vconfig['tc-server']['port']
 
-  # config.vm.synced_folder "../vagrant_data", "/vagrant_data"
+  # config.vm.synced_folder "${basedir}/docker_cache", "/var/lib/docker"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
