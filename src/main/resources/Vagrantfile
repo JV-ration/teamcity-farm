@@ -17,13 +17,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.0_chef-provisionerless.box"
 
   #copy http_proxy, https_proxy variables (if present) to VB
-  config.vm.provision "shell", inline: "sudo cp /vagrant/bin/profile.d/proxy.sh /etc/profile.d/."
-  config.vm.provision "shell", path: "bin/config.vm.provision.sh"
+  config.vm.provision "shell", inline: "sudo /vagrant/bin/config.vm.provision.sh"
 
   # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine
   config.vm.network :forwarded_port, guest: vconfig['tc-server']['port'], host: vconfig['tc-server']['port']
-
-  # config.vm.synced_folder "${basedir}/docker_cache", "/var/lib/docker"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

@@ -1,5 +1,12 @@
 #!/bin/sh -e
 
+my_dir=`dirname $0`
+. ${my_dir}/setEnv.sh
+
+# load proxy settings
+cp ${TC_FARM_HOME}/bin/profile.d/proxy.sh /etc/profile.d/.
+. /etc/profile.d/proxy.sh
+
 # do not use "sudo" as it resets ENV
 yum -y install docker
 
@@ -19,12 +26,10 @@ systemctl start docker
 systemctl enable docker
 
 # pulling docker images
-docker pull sadovnikov/teamcity-server:${docker.teamcity-server.version}
-docker pull sadovnikov/teamcity-agent:${docker.teamcity-server.version}
-docker pull mysql:${docker.mysql.version}
+docker pull sadovnikov/teamcity-server:${DOCKER_TC_SERVER_VERSION}
+docker pull sadovnikov/teamcity-agent:${DOCKER_TC_AGENT_VERSION}
+docker pull mysql:${DOCKER_TC_MYSQL_VERSION}
 
-mkdir tc-farm
 
 # start Team City server
-mkdir tc-farm/tc-server
-docker run --name tc-server -v tc-farm/tc-server:/data/teamcity -dt -p ${jvr.tcf.server.port}:${jvr.tcf.server.port} sadovnikov/teamcity-server
+docker run -v ${TC_FARM_HOME}:/host -dt -p ${TC_SERVER_PORT}:${TC_SERVER_PORT} sadovnikov/teamcity-server /host/bin/tc-server-start.sh
