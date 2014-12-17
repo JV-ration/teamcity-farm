@@ -1,4 +1,6 @@
 # vagrant_config.yml
 
+vm-hostname: ${project.artifactId}
+
 tc-server:
   port: ${jvr.tcf.server.port}

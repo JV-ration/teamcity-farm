@@ -40,3 +40,4 @@ Thumbs.db
 .vagrant
 .idea
 target
+vagrant-up.lck
