@@ -25,9 +25,18 @@
         <packaging.type>zip</packaging.type>
 
         <jvr.tcf.its.dir>${project.build.directory}/its</jvr.tcf.its.dir>
+        <jvr.tcf.vagrant.lck.file>vagrant.lck</jvr.tcf.vagrant.lck.file>
 
         <!-- properties using in generated scripts -->
         <jvr.tcf.server.port>8112</jvr.tcf.server.port>
+
+        <jvr.tcf.docker-share>/docker-share</jvr.tcf.docker-share>
+
+        <jvr.tcf.db.host>tc-mysql</jvr.tcf.db.host>
+        <jvr.tcf.db.name>tc</jvr.tcf.db.name>
+        <jvr.tcf.db.user>tcuser</jvr.tcf.db.user>
+        <jvr.tcf.db.pswrd>tcpassword</jvr.tcf.db.pswrd>
+
 
         <docker.teamcity-server.version>latest</docker.teamcity-server.version>
         <docker.teamcity-agent.version>latest</docker.teamcity-agent.version>
@@ -150,7 +159,7 @@
                         <configuration>
                             <executable>bin/vagrant-up${script.extension}</executable>
                             <arguments>
-                                <argument>${basedir}/vagrant-up.lck</argument>
+                                <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
                             </arguments>
                             <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
                         </configuration>
@@ -166,7 +175,7 @@
                         <configuration>
                             <executable>bin/vagrant-destroy${script.extension}</executable>
                             <arguments>
-                                <argument>${basedir}/vagrant-up.lck</argument>
+                                <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
                             </arguments>
                             <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
                         </configuration>
@@ -237,7 +246,7 @@
             <id>vagrant-clean</id>
             <activation>
                 <file>
-                    <exists>vagrant-up.lck</exists>
+                    <exists>${jvr.tcf.vagrant.lck.file}</exists>
                 </file>
             </activation>
             <build>
@@ -256,7 +265,7 @@
                                 <configuration>
                                     <executable>bin/vagrant-destroy${script.extension}</executable>
                                     <arguments>
-                                        <argument>${basedir}/vagrant-up.lck</argument>
+                                        <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
                                     </arguments>
                                     <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
                                 </configuration>

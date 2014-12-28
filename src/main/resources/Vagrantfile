@@ -18,23 +18,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The url from where the 'config.vm.box' box will be fetched if it doesn't already exist on the user's system.
   config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.0_chef-provisionerless.box"
 
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+
   #copy http_proxy, https_proxy variables (if present) to VB
-  config.vm.provision "shell", inline: "sudo /vagrant/bin/config.vm.provision.sh"
+  config.vm.provision "shell", inline: "cp -r /vagrant ${jvr.tcf.docker-share}"
+  config.vm.provision "shell", inline: "sudo cp ${jvr.tcf.docker-share}/bin/profile.d/proxy.sh /etc/profile.d/."
+  config.vm.provision "shell", inline: "sudo ${jvr.tcf.docker-share}/bin/config.vm.provision.sh"
 
   # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine
   config.vm.network :forwarded_port, guest: vconfig['tc-server']['port'], host: vconfig['tc-server']['port']
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider :virtualbox do |vb|
-  #   # Don't boot with headless mode
-  #   vb.gui = true
-  #
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
-  #
 
 end
