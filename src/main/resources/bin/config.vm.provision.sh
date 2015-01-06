@@ -35,15 +35,20 @@ docker pull mysql:${DOCKER_TC_MYSQL_VERSION}
 
 # check JDBC driver is not available get it
 if [ !"$(ls -a ${TC_FARM_HOME}/tc-server/lib/jdbc/*.jar)" ]; then
-  wget http://download.softagency.net/MySQL/Downloads/Connector-J/mysql-connector-java-5.1.34.tar.gz
+  wget --quiet http://download.softagency.net/MySQL/Downloads/Connector-J/mysql-connector-java-5.1.34.tar.gz
   tar -zxf mysql-connector-java-5.1.34.tar.gz
   cp mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar ${TC_FARM_HOME}/tc-server/lib/jdbc/.
   rm -f mysql-connector-java-5.1.34.tar.gz
   rm -rf mysql-connector-java-5.1.34
 fi
 
-# start MySQL server and init TeamCity database
+echo "Starting MySQL server and init TeamCity database"
 docker run --name tc-mysql --env-file=${TC_FARM_HOME}/tc-mysql/env.list -d mysql:${DOCKER_TC_MYSQL_VERSION}
 
-# start Team City server
-docker run --name tc-server --link tc-mysql:tc-mysql -v ${TC_FARM_HOME}:${TC_FARM_HOME} -dt -p ${TC_SERVER_PORT}:8111 sadovnikov/teamcity-server:${DOCKER_TC_SERVER_VERSION} ${TC_FARM_HOME}/bin/tc-server-start.sh
+echo "Starting Team City server"
+docker run --name ${TC_SERVER_HOST} --link ${TC_DB_HOST}:${TC_DB_HOST} -v ${TC_FARM_HOME}:${TC_FARM_HOME} -dt -p ${TC_SERVER_PORT}:8111 sadovnikov/teamcity-server:${DOCKER_TC_SERVER_VERSION} ${TC_FARM_HOME}/bin/tc-server-start.sh
+
+echo "Starting Team City Agent 1"
+docker run --name tc-agent-1 --link ${TC_SERVER_HOST}:${TC_SERVER_HOST} -dt -p 9090:9090 sadovnikov/teamcity-agent:${DOCKER_TC_AGENT_VERSION}
+echo "Starting Team City Agent 2"
+docker run --name tc-agent-2 --link ${TC_SERVER_HOST}:${TC_SERVER_HOST} -dt -p 9091:9090 sadovnikov/teamcity-agent:${DOCKER_TC_AGENT_VERSION}

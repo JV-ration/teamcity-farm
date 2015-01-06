@@ -37,6 +37,8 @@
         <jvr.tcf.db.user>tcuser</jvr.tcf.db.user>
         <jvr.tcf.db.pswrd>tcpassword</jvr.tcf.db.pswrd>
 
+        <jvr.tcf.server.host>tc-server</jvr.tcf.server.host>
+
 
         <docker.teamcity-server.version>latest</docker.teamcity-server.version>
         <docker.teamcity-agent.version>latest</docker.teamcity-agent.version>
@@ -78,6 +80,16 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.3.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
         <plugins>
 
@@ -127,65 +139,6 @@
 
             </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <executions>
-
-                    <!-- unzip package -->
-                    <execution>
-                        <id>unzip-package</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>unzip</executable>
-                            <arguments>
-                                <argument>${project.build.directory}/${project.build.finalName}.${packaging.type}</argument>
-                            </arguments>
-                            <workingDirectory>${jvr.tcf.its.dir}</workingDirectory>
-                        </configuration>
-                    </execution>
-
-                    <!-- start up the VM -->
-                    <execution>
-                        <id>vagrant-up</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>bin/vagrant-up${script.extension}</executable>
-                            <arguments>
-                                <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
-                            </arguments>
-                            <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
-                        </configuration>
-                    </execution>
-
-                    <!-- destroy the running VM after integration tests -->
-                    <execution>
-                        <id>vagrant-destroy</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>bin/vagrant-destroy${script.extension}</executable>
-                            <arguments>
-                                <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
-                            </arguments>
-                            <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
-                        </configuration>
-                    </execution>
-
-                </executions>
-
-            </plugin>
-
-
         </plugins>
     </build>
 
@@ -213,33 +166,6 @@
             <properties>
                 <script.extension>.sh</script.extension>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <!-- make scripts executable -->
-                            <execution>
-                                <id>enable-execution</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>chmod</executable>
-                                    <arguments>
-                                        <argument>-R</argument>
-                                        <argument>+x</argument>
-                                        <argument>.</argument>
-                                    </arguments>
-                                    <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}/bin</workingDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
 
         <profile>
@@ -271,6 +197,72 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>run-its</id>
+            <build>
+                <plugins>
+                    <plugin>
+
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+
+                        <executions>
+
+                            <!-- unzip package -->
+                            <execution>
+                                <id>unzip-package</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>unzip</executable>
+                                    <arguments>
+                                        <argument>${project.build.directory}/${project.build.finalName}.${packaging.type}</argument>
+                                    </arguments>
+                                    <workingDirectory>${jvr.tcf.its.dir}</workingDirectory>
+                                </configuration>
+                            </execution>
+
+                            <!-- start up the VM -->
+                            <execution>
+                                <id>vagrant-up</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>bin/vagrant/vagrant-up${script.extension}</executable>
+                                    <arguments>
+                                        <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
+                                    </arguments>
+                                    <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
+                                </configuration>
+                            </execution>
+
+                            <!-- destroy the running VM after integration tests -->
+                            <execution>
+                                <id>vagrant-destroy</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>bin/vagrant/vagrant-destroy${script.extension}</executable>
+                                    <arguments>
+                                        <argument>${basedir}/${jvr.tcf.vagrant.lck.file}</argument>
+                                    </arguments>
+                                    <workingDirectory>${jvr.tcf.its.dir}/${project.build.finalName}</workingDirectory>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+
                     </plugin>
                 </plugins>
             </build>
