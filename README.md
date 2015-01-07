@@ -20,17 +20,13 @@ The created Centos VM and installed Docker repeat your network proxy settings. T
 
 Get sources from GitHub and run Maven
 
-<pre>
-git clone https://github.com/JV-ration/teamcity-farm.git
-cd teamcity-farm
-mvn clean package
-</pre>
+    git clone https://github.com/JV-ration/teamcity-farm.git
+    cd teamcity-farm
+    mvn clean package
 
 The lines above will prepare ZIP file with Vagrant project in target folder
 
-<code>
-mvn clean pre-integration-test -Prun-its
-</code>
+    mvn clean pre-integration-test -Prun-its
 
 The line above will even unpack the ZIP in target/its/team-city-farm-0.0.1-SNAPSHOT folder
 
@@ -39,9 +35,7 @@ The line above will even unpack the ZIP in target/its/team-city-farm-0.0.1-SNAPS
 Unzip the archive and change to that directory
 Run the command below to create VM and prepare the build server
 
-<code>
-bin/vagrant/vagrant-up.sh vagrant.lck
-</code>
+    bin/vagrant/vagrant-up.sh vagrant.lck
 
 **Finish configuration of the build server**
 
