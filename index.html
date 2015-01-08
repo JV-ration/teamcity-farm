@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>TeamCity Farm by JV-ration</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>TeamCity Farm</h1>
+        <p>Project to create VM with docker based TeamCity server and agents</p>
+
+        <p class="view"><a href="https://github.com/JV-ration/teamcity-farm">View the Project on GitHub <small>JV-ration/teamcity-farm</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/JV-ration/teamcity-farm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/JV-ration/teamcity-farm/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/JV-ration/teamcity-farm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="team-city-9-out-of-the-box" class="anchor" href="#team-city-9-out-of-the-box" aria-hidden="true"><span class="octicon octicon-link"></span></a>Team City 9 out of the box</h1>
+
+<p>This is a Maven project, which results in ZIP-archive with <strong>Vagrant project</strong>.
+The Vagrant project</p>
+
+<ul>
+<li>creates <strong>VM with Centos 7.0</strong>
+</li>
+<li>installs Docker</li>
+<li>pull necessary images and starts <strong>Docker containers</strong> with
+
+<ul>
+<li>mySQL database</li>
+<li>TeamCity 9 build server</li>
+<li>2 TeamCity agents</li>
+</ul>
+</li>
+</ul>
+
+<p>The created Centos VM and installed Docker repeat your network proxy settings. Therefore you can use the project behind the company firewall</p>
+
+<p><strong>Final result</strong>: Ready for use TeamCity build server becomes available on your machine at <a href="http://localhost:8112/">http://localhost:8112/</a></p>
+
+<h3>
+<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use it?</h3>
+
+<p><strong>Build Maven project</strong></p>
+
+<p>Get sources from GitHub and run Maven</p>
+
+<pre><code>git clone https://github.com/JV-ration/teamcity-farm.git
+cd teamcity-farm
+mvn clean package
+</code></pre>
+
+<p>The lines above will prepare ZIP file with Vagrant project in target folder</p>
+
+<pre><code>mvn clean pre-integration-test -Prun-its
+</code></pre>
+
+<p>The line above will even unpack the ZIP in target/its/team-city-farm-0.0.1-SNAPSHOT folder</p>
+
+<p><strong>Create and run VM</strong></p>
+
+<p>Unzip the archive and change to that directory
+Run the command below to create VM and prepare the build server</p>
+
+<pre><code>bin/vagrant/vagrant-up.sh vagrant.lck
+</code></pre>
+
+<p><strong>Finish configuration of the build server</strong></p>
+
+<p>When VM is fully provisioned</p>
+
+<ul>
+<li>open the build server at <a href="http://localhost:8112/">http://localhost:8112/</a>
+</li>
+<li>accept JetBrains TeamCity license</li>
+<li>enter the desired administrator name and password</li>
+<li>authorize both agents</li>
+</ul>
+
+<h3>
+<a id="what-to-expect-shortly" class="anchor" href="#what-to-expect-shortly" aria-hidden="true"><span class="octicon octicon-link"></span></a>What to expect shortly?</h3>
+
+<ul>
+<li>Directly downloadable <strong>Vagrant project</strong>, so you don't have to install and run Maven</li>
+<li>Scripts for running <strong>Docker containers</strong> directly on your machine, so don't have use Vagrant and Virtual Box</li>
+<li>Whatever is seen the project <a href="https://github.com/JV-ration/teamcity-farm/issues">issues</a>
+</li>
+</ul>
+
+<h3>
+<a id="pre-required-software" class="anchor" href="#pre-required-software" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pre-required software</h3>
+
+<ul>
+<li>Recent JDK</li>
+<li>Maven 3.0.4 or higher</li>
+<li>Vagrant for managing virtual machine with</li>
+<li>Virtual Box (or another virtualization provider)</li>
+</ul>
+
+<h3>
+<a id="who-do-i-talk-to" class="anchor" href="#who-do-i-talk-to" aria-hidden="true"><span class="octicon octicon-link"></span></a>Who do I talk to?</h3>
+
+<ul>
+<li>Viktor Sadovnikov <a href="https://twitter.com/sadovnikov">@sadovnikov</a>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/JV-ration">JV-ration</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
