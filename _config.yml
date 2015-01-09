@@ -1,0 +1,4 @@
+markdown: rdiscount
+highlighter: pygments
+permalink: /:title
+baseurl: /project-name
