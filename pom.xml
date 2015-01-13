@@ -9,6 +9,7 @@
 
     <name>JV-ration TeamCity Farm</name>
     <description>Build results enable creation of new VM, which runs ready for use installation of TeamCity server and client</description>
+    <url>http://jv-ration.github.io/teamcity-farm/</url>
 
     <licenses>
         <license>
@@ -40,8 +41,8 @@
         <jvr.tcf.server.host>tc-server</jvr.tcf.server.host>
 
 
-        <docker.teamcity-server.version>latest</docker.teamcity-server.version>
-        <docker.teamcity-agent.version>latest</docker.teamcity-agent.version>
+        <docker.teamcity-server.version>0.1</docker.teamcity-server.version>
+        <docker.teamcity-agent.version>0.1</docker.teamcity-agent.version>
 
         <docker.mysql.version>5.7.5-m15</docker.mysql.version>
 
