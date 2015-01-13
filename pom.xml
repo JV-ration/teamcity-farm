@@ -4,7 +4,7 @@
 
     <groupId>com.jv-ration.docker</groupId>
     <artifactId>team-city-farm</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JV-ration TeamCity Farm</name>
@@ -57,8 +57,7 @@
         <connection>scm:git:git@github.com:JV-ration/teamcity-farm.git</connection>
         <url>scm:git:git@github.com:JV-ration/teamcity-farm.git</url>
         <developerConnection>scm:git:git@github.com:JV-ration/teamcity-farm.git</developerConnection>
-      <tag>team-city-farm-0.0.1</tag>
-  </scm>
+    </scm>
 
     <developers>
         <developer>
