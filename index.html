@@ -5,7 +5,7 @@ tagline: Project to create VM with docker based TeamCity server and agents
 ---
 
 <p>This is a Maven project, which results in ZIP-archive with <strong>Vagrant project</strong>.
-The Vagrant project</p>
+The later</p>
 
 <ul>
 <li>creates <strong>VM with Centos 7.0</strong>
@@ -28,25 +28,31 @@ The Vagrant project</p>
 <h3>
 <a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use it?</h3>
 
-<p><strong>Build Maven project</strong></p>
+<p><strong>Get Vagrant project</strong></p>
 
-<p>Get sources from GitHub and run Maven</p>
+<p>You can either download the released project using a button on the right or get sources and run Maven</p>
+
+<p>Simply download archive with sources using a button on the right and unpack it. Or, to get latest sources from GitHub, clone the repository</p>
 
 <pre><code>git clone https://github.com/JV-ration/teamcity-farm.git
 cd teamcity-farm
-mvn clean package
 </code></pre>
 
-<p>The lines above will prepare ZIP file with Vagrant project in target folder</p>
+<p>Then change to the directory with sources and</p>
+
+<pre><code>mvn clean package
+</code></pre>
+
+<p>The line above will prepare ZIP file with Vagrant project in <code>target</code> folder.
+    The line below will even unpack the ZIP in <code>target/its/team-city-farm-0.0.2-SNAPSHOT</code> folder</p>
 
 <pre><code>mvn clean pre-integration-test -Prun-its
 </code></pre>
 
-<p>The line above will even unpack the ZIP in target/its/team-city-farm-0.0.1-SNAPSHOT folder</p>
 
 <p><strong>Create and run VM</strong></p>
 
-<p>Unzip the archive and change to that directory
+<p>Unpack the archive with Vagrant project and change to that directory
 Run the command below to create VM and prepare the build server</p>
 
 <pre><code>bin/vagrant/vagrant-up.sh vagrant.lck
@@ -64,11 +70,14 @@ Run the command below to create VM and prepare the build server</p>
 <li>authorize both agents</li>
 </ul>
 
+<p><strong>Happy Building ;-)</strong></p>
+
+<img src="images/happy-building.png"/>
+
 <h3>
 <a id="what-to-expect-shortly" class="anchor" href="#what-to-expect-shortly" aria-hidden="true"><span class="octicon octicon-link"></span></a>What to expect shortly?</h3>
 
 <ul>
-<li>Directly downloadable <strong>Vagrant project</strong>, so you don't have to install and run Maven</li>
 <li>Scripts for running <strong>Docker containers</strong> directly on your machine, so don't have use Vagrant and Virtual Box</li>
 <li>Whatever is seen the project <a href="https://github.com/JV-ration/teamcity-farm/issues">issues</a>
 </li>
@@ -79,7 +88,7 @@ Run the command below to create VM and prepare the build server</p>
 
 <ul>
 <li>Recent JDK</li>
-<li>Maven 3.0.4 or higher</li>
+<li>Maven 3.0.4 or higher, unless you download released Vagrant project</li>
 <li>Vagrant for managing virtual machine with</li>
 <li>Virtual Box (or another virtualization provider)</li>
 </ul>

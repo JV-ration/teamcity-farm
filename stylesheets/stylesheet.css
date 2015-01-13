@@ -441,10 +441,10 @@ p {
 }
 
 a {
-  color: #535a4f;
+  color: #5CA244;
 }
 a:hover {
-  color: #2268b2;
+  color: #5CA244;
 }
 
 header {
@@ -526,6 +526,10 @@ a.button {
   line-height: 1.2;
   color: #fff;
 }
+a.button2l {
+  height: 67px;
+  padding-top: 13px;
+}
 a.button small {
   display: block;
   font-size: 11px;
@@ -554,7 +558,7 @@ code, pre {
 
 code {
   padding: 0 3px;
-  background-color: #f2f8fc;
+  background-color: #f2fff2;
   border: solid 1px #dbe7f3;
 }
 
