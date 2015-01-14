@@ -3,8 +3,11 @@ layout: default
 title: TeamCity Farm
 tagline: Project to create VM with docker based TeamCity server and agents
 ---
-
-<p>This is a Maven project, which results in ZIP-archive with <strong>Vagrant project</strong>.
+<p>TeamCity from JetBrains is my favorite build server. It “knows” what developers need, it simply works 
+out-of-the-box instead of you spending time making it to work. There is an option to get it installed quickly with 
+trial installation topology, when both server and single agent run on the same box. However it is preferable to 
+isolate them from each other.</p>
+<p>TeamCity Farm is a Maven project, which results in ZIP-archive with <strong>Vagrant project</strong>.
 The later</p>
 
 <ul>
@@ -30,15 +33,14 @@ The later</p>
 
 <p><strong>Get Vagrant project</strong></p>
 
-<p>You can either download the released project using a button on the right or get sources and run Maven.</p>
-
-<p>The sources can be downloaded using a button on the right and unpack it. Or, to get latest sources from GitHub, clone the repository</p>
+<p>You can either download the released project using a button on the right or get sources and run Maven. 
+The sources can be downloaded using a button on the right or, to get latest sources from GitHub, clone the repository</p>
 
 <pre><code>git clone https://github.com/JV-ration/teamcity-farm.git
 cd teamcity-farm
 </code></pre>
 
-<p>Then change to the directory with sources and</p>
+<p>Then change to the directory with unpacked sources and</p>
 
 <pre><code>mvn clean package
 </code></pre>
