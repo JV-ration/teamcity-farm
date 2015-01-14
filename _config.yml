@@ -2,3 +2,4 @@ markdown: rdiscount
 highlighter: pygments
 permalink: /:title
 baseurl: /teamcity-farm
+googletracker: UA-45119631-2
