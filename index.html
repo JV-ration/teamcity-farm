@@ -80,7 +80,13 @@ Run the command below to create VM and prepare the build server</p>
 <a id="what-to-expect-shortly" class="anchor" href="#what-to-expect-shortly" aria-hidden="true"><span class="octicon octicon-link"></span></a>What to expect shortly?</h3>
 
 <ul>
-<li>Scripts for running <strong>Docker containers</strong> directly on your machine, so don't have use Vagrant and Virtual Box</li>
+<li>Scripts for running <strong>Docker containers</strong> directly on your machine, so don't have use Vagrant and Virtual Box. Basically
+    there will be three different starting points:
+<ul><li>your platform does not support Docker => start with Vagrant, which will bring you to the next starting point;</li>
+    <li>your box is vanilla installation => start with installation of Docker;</li>
+    <li>your box has Docker => just pull images and start containers</li>
+</ul></li>
+<li>Utilization of <a href="http://www.fig.sh/" title="http://www.fig.sh/">fig</a> to simplify Docker commands</li>
 <li>Whatever is seen the project <a href="https://github.com/JV-ration/teamcity-farm/issues">issues</a>
 </li>
 </ul>
